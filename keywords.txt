@@ -1,0 +1,131 @@
+#######################################
+# Syntax Coloring Map For Monocle
+#######################################
+
+#######################################
+# Datatypes (KEYWORD1)
+#######################################
+
+MonocleGatewayClient	KEYWORD1
+MonoclePTZJoystick KEYWORD1
+MonocleOLED KEYWORD1
+MonocleMenu KEYWORD1
+MonocleOLEDMenuRenderer KEYWORD1
+
+#######################################
+# Methods and Functions (KEYWORD2)
+#######################################
+
+# (--MonocleGatewayClient--)
+begin	KEYWORD2
+connected	KEYWORD2
+stop KEYWORD2
+home KEYWORD2
+preset KEYWORD2
+ptz	KEYWORD2
+pan KEYWORD2
+tilt KEYWORD2
+zoom KEYWORD2
+send KEYWORD2
+
+# (--MonoclePTZJoystick--)
+setupPan KEYWORD2
+setupTilt KEYWORD2
+setupZoom KEYWORD2
+setupButton KEYWORD2
+setPanThresholdLow KEYWORD2
+setPanThresholdMed KEYWORD2
+setPanThresholdHigh KEYWORD2
+setPanThresholds KEYWORD2
+setTiltThresholdLow KEYWORD2
+setTiltThresholdMed KEYWORD2
+setTiltThresholdHigh KEYWORD2
+setTiltThresholds KEYWORD2
+setZoomThresholdLow KEYWORD2
+setZoomThresholdMed KEYWORD2
+setZoomThresholdHigh KEYWORD2
+setZoomThresholds KEYWORD2
+setAllThresholdLow KEYWORD2
+setAllThresholdMed KEYWORD2
+setAllThresholdHigh KEYWORD2
+setAllThresholds KEYWORD2
+setPanBuffer KEYWORD2
+setTiltBuffer KEYWORD2
+setZoomBuffer KEYWORD2
+invertPanAxis KEYWORD2
+invertTiltAxis KEYWORD2
+invertZoomAxis KEYWORD2
+setPTZEventDelay KEYWORD2
+onPTZ KEYWORD2
+onButtonPress KEYWORD2
+disableMultistate KEYWORD2
+panValue KEYWORD2
+tiltValue KEYWORD2
+zoomValue KEYWORD2
+panState KEYWORD2
+tiltState KEYWORD2
+zoomState KEYWORD2
+loop KEYWORD2
+
+# (--MonocleOLED--)
+init KEYWORD2
+logo KEYWORD2
+clearText KEYWORD2
+clearLine1 KEYWORD2
+clearLine2 KEYWORD2
+clearLine3 KEYWORD2
+clearLine4 KEYWORD2
+printText KEYWORD2
+printLine KEYWORD2
+printLine1 KEYWORD2
+printLine2 KEYWORD2
+printLine3 KEYWORD2
+printLine4 KEYWORD2
+
+# (--MonocleMenu--)
+refresh KEYWORD2
+loop	KEYWORD2
+activate KEYWORD2
+deactivate KEYWORD2
+isActive KEYWORD2
+select KEYWORD2
+reset KEYWORD2
+next KEYWORD2
+prev KEYWORD2
+back KEYWORD2
+addZoomMenu KEYWORD2
+onActivate KEYWORD2
+onDeactivate KEYWORD2
+onHome KEYWORD2
+onZoom KEYWORD2
+onPreset KEYWORD2
+
+#######################################
+# Constants (LITERAL1)
+#######################################
+
+#	LITERAL1
+
+#######################################
+# Data Types (DATA_TYPE)
+#######################################
+
+# (--MonoclePTZJoystick--)
+PinThreshold DATA_TYPE
+PinData DATA_TYPE
+
+#######################################
+# Preprocessor (PREPROCESSOR)
+#######################################
+
+# (--MonoclePTZJoystick--)
+JOYSTICK_AXIS_HIGH PREPROCESSOR
+JOYSTICK_AXIS_MED PREPROCESSOR
+JOYSTICK_AXIS_LOW PREPROCESSOR
+JOYSTICK_AXIS_OFF PREPROCESSOR
+JOYSTICK_DEFAULT_BUFFER PREPROCESSOR
+JOYSTICK_DEFAULT_LOW_THRESHOLD PREPROCESSOR
+JOYSTICK_DEFAULT_PTZ_EVENT_DELAY PREPROCESSOR
+
+# (--MonocleMenu--)
+MONOCLE_MENU_DISPLAY_INTERVAL PREPROCESSOR
