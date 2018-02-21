@@ -10,7 +10,7 @@
  * -------------------------------------------------------------------
  *
  *  This library provides a client implementation to connect locally
- *  to a Moncole Gateway service to perform camera control.
+ *  to a Monocle Gateway service to perform camera control.
  *
  *  Author:   Robert Savage
  *  Date:     2018-02-18

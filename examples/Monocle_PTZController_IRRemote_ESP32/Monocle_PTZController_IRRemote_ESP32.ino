@@ -9,9 +9,9 @@
  *           MONOCLE PTZ CONTROLLER - IR REMOTE (ESP32)
  * -------------------------------------------------------------------
  *
- *  This project implments a Wireless PTZ camera controller using
+ *  This project implements a Wireless PTZ camera controller using
  *  a simple IR remote control.  This project connects to a local
- *  Moncole Gateway service which provides direct communication with
+ *  Monocle Gateway service which provides direct communication with
  *  your ONVIF supported network cameras and the Monocle hosted
  *  services.
  *
@@ -116,7 +116,7 @@
  * BILL OF MATERIALS
  * ------------------------------------------------------------------------
  *
- * This projest was built using the following components:
+ * This project was built using the following components:
  *
  *  1 @  Makerfocus ESP32 Development Board Wemos Lolin for Arduino
  *       http://amzn.to/2EBFYsF

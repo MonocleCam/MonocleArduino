@@ -9,10 +9,10 @@
  *        MONOCLE PTZ CONTROLLER - ATARI JOYSTICK (ESP8266)
  * -------------------------------------------------------------------
  *
- *  This project implments a Wireless PTZ camera controller using
- *  an Atari/Commodore compatible Joystick with a 9-pin DB9 connector.  
- *  This project connects to a local Moncole Gateway service which 
- *  provides direct communication with your ONVIF supported network 
+ *  This project implements a Wireless PTZ camera controller using
+ *  an Atari/Commodore compatible Joystick with a 9-pin DB9 connector.
+ *  This project connects to a local Monocle Gateway service which
+ *  provides direct communication with your ONVIF supported network
  *  cameras and the Monocle hosted services.
  *
  *  When used in conjunction with the Monocle Alexa Smart Home Skill,
@@ -35,24 +35,24 @@
  * ------------------------------------------------------------------------
  * PROJECT ABSTRACT
  * ------------------------------------------------------------------------
- * This project builds a fully functional Atari/Commodore Joystick based 
- * PTZ (pan-tilt-zoom) controller for your ONVIF supported network (IP) 
- * cameras.  This project integrates with the Monocle platform and Monocle 
- * Alexa Smart Home skill to actively and automatically control the last 
- * camera selected via your Amazon Alexa-video enabled device such as Echo 
- * Show, Echo Spot or Fire TV.  
- * 
+ * This project builds a fully functional Atari/Commodore Joystick based
+ * PTZ (pan-tilt-zoom) controller for your ONVIF supported network (IP)
+ * cameras.  This project integrates with the Monocle platform and Monocle
+ * Alexa Smart Home skill to actively and automatically control the last
+ * camera selected via your Amazon Alexa-video enabled device such as Echo
+ * Show, Echo Spot or Fire TV.
+ *
  * This project uses a basic contact closure microswitch or reed based
- * joystick controller to perform pan, tilt and zoom functions. The basic 
+ * joystick controller to perform pan, tilt and zoom functions. The basic
  * control works as follows:
- * 
+ *
  *  [LEFT]         - PAN LEFT
  *  [RIGHT]        - PAN RIGHT
  *  [UP]           - TILT UP
  *  [DOWN]         - TILT DOWN
  *  [FIRE + UP]    - ZOOM IN    (hold the fire button down while pushing up)
  *  [FIRE + DOWN]  - ZOOM OUT   (hold the fire button down while pushing down)
- * 
+ *
  * (Please see the Bill--Of-Materials section for more information
  * on this joystick controller.)
  */
@@ -67,7 +67,7 @@
  * https://www.hackster.io/contests/alexasmarthome
  *
  * You can find the fully documented project here:
- * T.B.D.
+ * https://www.hackster.io/monocle/monocle-view-control-ip-cameras-with-alexa-arduino-32bdd3
  */
 
  /**
@@ -103,7 +103,7 @@
  * BILL OF MATERIALS
  * ------------------------------------------------------------------------
  *
- * This projest was built using the following components:
+ * This project was built using the following components:
  *
  *  1 @  Makerfocus D1 Mini NodeMcu 4M ESP8266 ESP-12F
  *       http://amzn.to/2FfOsDd
@@ -112,38 +112,42 @@
  *  1 @  DB9 Male Solder D-SUB Connector with Plastic Shell
  *       http://amzn.to/2FeytF7
  *       $3.80 USD  <AMAZON PRIME>
- *       
+ *
  *  1 @  CirKa "A77" Premium Joystick Controller for Atari 2600
  *       (or any Atari/Commodore compatible joystick)
  *       http://amzn.to/2CvvN3j
  *       $14.99 USD  <AMAZON PRIME>
+ *  
+ *  1 @  2.2"x1.4"x 0.6" Plastic Electric Project Case
+ *       http://amzn.to/2GxxyiS
+ *       $8.14 USD (5 pc)  <AMAZON PRIME>
  *
  *  OPTIONAL COMPONENTS:
  *
  *  If you are like me, then you might prefer to but a bulk pack rather than a single connector:
  *  1 @  Connectors Pro 10 Sets Solder Type DB9 Male and Plastic Hoods, D-Sub Connector
  *       http://amzn.to/2EEgtqT
- *       $11.95 USD  <AMAZON PRIME>    
- *  (or)     
+ *       $11.95 USD  <AMAZON PRIME>
+ *  (or)
  *  1 @  20 Pcs Replacement Converter DB9 Male Solder
  *       http://amzn.to/2EF10qD
- *       $8.13 USD   <AMAZON PRIME>    
- *       
+ *       $8.13 USD   <AMAZON PRIME>
+ *
  *  If you prefer not to solder the DB9 connector and use screw terminals:
  *  1 @  DB9 RS232 D-SUB Male Adapter 9-pin Port Adapter to Terminal Connector Signal Module With case
  *       http://amzn.to/2sEgDJd
- *       $7.88 USD   <AMAZON PRIME>    
+ *       $7.88 USD   <AMAZON PRIME>
  *  (or)
  *  1 @  DB9 D-SUB 9 Pin Male Adapter RS232 to Terminal Connector Signal Module
  *       http://amzn.to/2ENA8E7
- *       $6.75 USD   <AMAZON PRIME>    
- *       
- *  1 @  Micro USB Regulated Power Supply (5VDC 1AA)
+ *       $6.75 USD   <AMAZON PRIME>
+ *
+ *  1 @  Micro USB Regulated Power Supply (5VDC 1A)
  *       http://amzn.to/2HqFFyT
  *       $7.99 USD   <AMAZON PRIME>
- *       
+ *
  *  1 @ Makerfocus Breadboard Kit Breadboard Jumper wires USB cable Hookup for Arduino
- *      http://amzn.to/2C6ZprU  
+ *      http://amzn.to/2C6ZprU
  *      $24.99 USD   <AMAZON PRIME>
  *
  * (NOTE: prices listed are at the time of this writing: 2018-02-18)
@@ -160,7 +164,7 @@
   * - ArduinoHttpClient
   *   https://github.com/arduino-libraries/ArduinoHttpClient
   *   (used for web-socket communication)
-  *   
+  *
   * - Bounce2
   *   https://github.com/thomasfredericks/Bounce2
   *   (used for debouncing the joystick button)  *
@@ -262,7 +266,7 @@ unsigned long doubleClickTimer = 0;
  * ------------------------------------------------------------------------
  */
 void setup() {
-  
+
   // define default UART baud rate
   // @see: https://www.arduino.cc/en/serial/begin
   Serial.begin(115200);
@@ -277,14 +281,14 @@ void setup() {
   pinMode(JOYSTICK_PIN_DOWN,  INPUT_PULLUP);
   pinMode(JOYSTICK_PIN_LEFT,  INPUT_PULLUP);
   pinMode(JOYSTICK_PIN_RIGHT, INPUT_PULLUP);
-  pinMode(JOYSTICK_PIN_FIRE,  INPUT_PULLUP);  
+  pinMode(JOYSTICK_PIN_FIRE,  INPUT_PULLUP);
 
   // attach each joystick pin to the debounce instance
   for (int i = 0; i < sizeof(JOYSTICK_PINS); i++) {
     debounce[i].attach(JOYSTICK_PINS[i] , INPUT_PULLUP);
     debounce[i].interval(10);   // interval in ms
   }
-  
+
   Serial.println("================================================");
   Serial.print(" PROGRAM: ");
   Serial.println(PROGRAM_NAME);
@@ -332,10 +336,10 @@ void loop() {
   monocle.begin();
 
   // let the user know we are connected to the Monocle Gateway
-  if (monocle.connected()) {   
-    Serial.println("Successfully connected to Monocle Gateway.");  
+  if (monocle.connected()) {
+    Serial.println("Successfully connected to Monocle Gateway.");
   }
-  
+
   // continious loop while we are connected to the Monocle Gateway
   while (monocle.connected()) {
 
@@ -364,9 +368,9 @@ void loop() {
       pan = PAN_SPEED;                  // (positive pan speed means 'right')
     else                                //
       pan = 0;                          // PAN STOP
-  
+
     // PROCESS TILT (Y-AXIS) <when fire button is not pressed>
-    if(debounce[4].read() == HIGH && debounce[0].read() == LOW)       // TILT UP 
+    if(debounce[4].read() == HIGH && debounce[0].read() == LOW)       // TILT UP
       tilt = TILT_SPEED;                                              // (positive tilt speed means 'up')
     else if(debounce[4].read() == HIGH && debounce[1].read() == LOW)  // TILT DOWN
       tilt = -TILT_SPEED;                                             // (negative tilt speed means 'down')
@@ -374,20 +378,20 @@ void loop() {
       tilt = 0;                                                       // TILT STOP
 
     // PROCESS ZOOM (Y-AXIS) <when fire button is pressed>
-    if(debounce[4].read() == LOW && debounce[0].read() == LOW)        // ZOOM IN 
+    if(debounce[4].read() == LOW && debounce[0].read() == LOW)        // ZOOM IN
       zoom = ZOOM_SPEED;                                              // (positive zoom speed means 'in')
     else if(debounce[4].read() == LOW && debounce[1].read() == LOW)   // ZOOM OUT DOWN
       zoom = -ZOOM_SPEED;                                             // (negative zoom speed means 'out')
     else                                                              //
       zoom = 0;                                                       // ZOOM STOP
-  
+
     // do we need to send a PTZ command to the Monocle gateway?
     if(pan != lastPan || tilt != lastTilt || zoom != lastZoom){
       // sycn last known PTZ states
       lastPan  = pan;
       lastTilt = tilt;
       lastZoom = zoom;
-    
+
       // build a display string of the current  PTZ action(s)
       String info = "--> ";
       if(pan > 0) info+="PAN RIGHT; ";
@@ -398,7 +402,7 @@ void loop() {
       if(zoom < 0) info+="ZOOM OUT; ";
       if(pan == 0 && tilt == 0 && zoom == 0) info+="STOP";
       Serial.println(info);
-            
+
       // send PTZ to Monocle gateway
       monocle.ptz(pan, tilt, zoom);
     }

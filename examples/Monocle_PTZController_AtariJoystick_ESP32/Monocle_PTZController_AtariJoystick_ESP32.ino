@@ -9,9 +9,9 @@
  *        MONOCLE PTZ CONTROLLER - ATARI JOYSTICK (ESP32)
  * -------------------------------------------------------------------
  *
- *  This project implments a Wireless PTZ camera controller using
+ *  This project implements a Wireless PTZ camera controller using
  *  an Atari/Commodore compatible Joystick with a 9-pin DB9 connector.
- *  This project connects to a local Moncole Gateway service which
+ *  This project connects to a local Monocle Gateway service which
  *  provides direct communication with your ONVIF supported network
  *  cameras and the Monocle hosted services.
  *
@@ -103,7 +103,7 @@
  * BILL OF MATERIALS
  * ------------------------------------------------------------------------
  *
- * This projest was built using the following components:
+ * This project was built using the following components:
  *
  *  1 @  Makerfocus ESP32 Development Board Wemos Lolin for Arduino
  *       http://amzn.to/2EBFYsF
@@ -117,6 +117,10 @@
  *       (or any Atari/Commodore compatible joystick)
  *       http://amzn.to/2CvvN3j
  *       $14.99 USD  <AMAZON PRIME>
+ *
+ *  1 @  2.2"x1.4"x 0.6" Plastic Electric Project Case
+ *       http://amzn.to/2GxxyiS
+ *       $8.14 USD (5 pc)  <AMAZON PRIME> 
  *
  *  OPTIONAL COMPONENTS:
  *
@@ -138,7 +142,7 @@
  *       http://amzn.to/2ENA8E7
  *       $6.75 USD   <AMAZON PRIME>
  *
- *  1 @  Micro USB Regulated Power Supply (5VDC 1AA)
+ *  1 @  Micro USB Regulated Power Supply (5VDC 1A)
  *       http://amzn.to/2HqFFyT
  *       $7.99 USD   <AMAZON PRIME>
  *

@@ -9,9 +9,9 @@
  *                MONOCLE PTZ CONTROLLER (DELUXE)
  * -------------------------------------------------------------------
  *
- *  This project implments a Wireless PTZ camera controller using
+ *  This project implements a Wireless PTZ camera controller using
  *  a three-axis joystick with an OLED (128x64) display for status
- *  and menu access.  This project connects to a local Moncole
+ *  and menu access.  This project connects to a local Monocle
  *  Gateway service which provides direct communication with your
  *  ONVIF supported network cameras and the Monocle hosted services.
  *
@@ -98,7 +98,7 @@
  * BILL OF MATERIALS
  * ------------------------------------------------------------------------
  *
- * This projest was built using the following components:
+ * This project was built using the following components:
  *
  *  1 @  Arduino MKR1000 (WiFI)
  *       https://store.arduino.cc/usa/arduino-mkr1000

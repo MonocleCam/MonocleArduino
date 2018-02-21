@@ -9,9 +9,9 @@
  *                  MONOCLE PTZ CONTROLLER (BASIC)
  * -------------------------------------------------------------------
  *
- *  This project implments a Wireless PTZ camera controller using
+ *  This project implements a Wireless PTZ camera controller using
  *  a small two-axis joystick with an OLED (128x64) display for status
- *  and menu access.  This project connects to a local Moncole
+ *  and menu access.  This project connects to a local Monocle
  *  Gateway service which provides direct communication with your
  *  ONVIF supported network cameras and the Monocle hosted services.
  *
@@ -64,7 +64,7 @@
  * https://www.hackster.io/contests/alexasmarthome
  *
  * You can find the fully documented project here:
- * T.B.D.
+ * https://www.hackster.io/monocle/monocle-view-control-ip-cameras-with-alexa-arduino-32bdd3
  */
 
  /**
@@ -100,7 +100,7 @@
  * BILL OF MATERIALS
  * ------------------------------------------------------------------------
  *
- * This projest was built using the following components:
+ * This project was built using the following components:
  *
  *  1 @  Arduino MKR1000 (WiFI)
  *       https://store.arduino.cc/usa/arduino-mkr1000
@@ -124,7 +124,7 @@
  *       http://amzn.to/2EDDZV2
  *       $15.88 USD  <AMAZON PRIME>
  *
- *  1 @  Micro USB Regulated Power Supply (5VDC 1AA)
+ *  1 @  Micro USB Regulated Power Supply (5VDC 1A)
  *       http://amzn.to/2HqFFyT
  *       $7.99 USD  <AMAZON PRIME>
  *
