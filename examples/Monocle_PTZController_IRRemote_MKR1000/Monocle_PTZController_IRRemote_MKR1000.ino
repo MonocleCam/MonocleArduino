@@ -132,7 +132,7 @@
  *       http://amzn.to/2BBQ5v6
  *       $5.98 USD (for 5 pairs)  <AMAZON PRIME>
  *
- *  1 @  Micro USB Regulated Power Supply (5VDC 1AA)
+ *  1 @  Micro USB Regulated Power Supply (5VDC 1A)
  *       http://amzn.to/2HqFFyT
  *       $7.99 USD  <AMAZON PRIME>
  *

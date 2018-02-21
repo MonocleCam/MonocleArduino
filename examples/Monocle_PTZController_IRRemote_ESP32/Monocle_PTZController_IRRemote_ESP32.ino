@@ -80,7 +80,7 @@
  * https://www.hackster.io/contests/alexasmarthome
  *
  * You can find the fully documented project here:
- * T.B.D.
+ * https://www.hackster.io/monocle/monocle-view-control-ip-cameras-with-alexa-arduino-32bdd3
  */
 
  /**
@@ -132,7 +132,7 @@
  *       http://amzn.to/2BBQ5v6
  *       $5.98 USD (for 5 pairs)  <AMAZON PRIME>
  *
- *  1 @  Micro USB Regulated Power Supply (5VDC 1AA)
+ *  1 @  Micro USB Regulated Power Supply (5VDC 1A)
  *       http://amzn.to/2HqFFyT
  *       $7.99 USD  <AMAZON PRIME>
  *
