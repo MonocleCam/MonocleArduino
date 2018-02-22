@@ -1,5 +1,5 @@
 {
-  "name": "Monocle IP Camera Libary",
+  "name": "Monocle IP Camera Library",
   "keywords": "camera, network, ip camera, onvif, rtsp, ptz, zoom, pan, tilt, cam, preset, alexa, monocle, monoclecam",
   "description": "This library works in conjunction with the MonocleCam cloud service to provide local network/IP camera control for ONVIF supported cameras.",
   "repository":
