@@ -44,6 +44,7 @@ The library includes the following Arduino sample PTZ controller projects:
 ___
 
 <a name="deluxe">
+
 ### Deluxe 3-Axis Joystick PTZ Controller
 
 This project implements a 3-axis joystick controller with an Arduino MKR1000 to provide the most sophisticated and feature rich controller of all the project samples we provide. This project implements a small OLED module (128x64 pixels) to serve as a user interface for menu navigation. The third axis on this joystick is a rotational axis that is used for zoom control. All three axis on this joystick provide positional feedback (potentiometers) so we use this information to ramp PTZ movement speed proportionally with the position of the joystick relative to it's center.
