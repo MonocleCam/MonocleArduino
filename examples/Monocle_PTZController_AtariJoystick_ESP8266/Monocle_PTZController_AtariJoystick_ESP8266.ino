@@ -117,7 +117,7 @@
  *       (or any Atari/Commodore compatible joystick)
  *       http://amzn.to/2CvvN3j
  *       $14.99 USD  <AMAZON PRIME>
- *  
+ *
  *  1 @  2.2"x1.4"x 0.6" Plastic Electric Project Case
  *       http://amzn.to/2GxxyiS
  *       $8.14 USD (5 pc)  <AMAZON PRIME>

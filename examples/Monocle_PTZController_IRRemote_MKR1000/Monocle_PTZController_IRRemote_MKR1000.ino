@@ -126,6 +126,10 @@
  *       http://amzn.to/2sDvXWv
  *       $6.90 USD  <AMAZON PRIME>
  *
+ *  1 @  Serpac A21 ABS Plastic Enclosure, 4-1/4" Length x 2.60" Width x 1-1/8" Height, Black
+ *       http://amzn.to/2ETORgP
+ *       $6.82 USD <AMAZON PRIME>
+ *
  *  OPTIONAL COMPONENTS:
  *
  *  1 @  AIRSUNNY 5 pairs Infrared Diode LED 38KHz IR Emission and Receiver

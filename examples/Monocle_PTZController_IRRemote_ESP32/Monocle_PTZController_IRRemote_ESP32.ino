@@ -126,6 +126,10 @@
  *       http://amzn.to/2sDvXWv
  *       $6.90 USD  <AMAZON PRIME>
  *
+ *  1 @  2.2"x1.4"x 0.6" Plastic Electric Project Case
+ *       http://amzn.to/2GxxyiS
+ *       $8.14 USD (5 pc)  <AMAZON PRIME>
+ *
  *  OPTIONAL COMPONENTS:
  *
  *  1 @  AIRSUNNY 5 pairs Infrared Diode LED 38KHz IR Emission and Receiver

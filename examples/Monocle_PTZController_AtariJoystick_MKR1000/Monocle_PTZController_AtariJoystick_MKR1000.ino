@@ -118,9 +118,9 @@
  *       http://amzn.to/2CvvN3j
  *       $14.99 USD  <AMAZON PRIME>
  *
- *  1 @  2.2"x1.4"x 0.6" Plastic Electric Project Case
- *       http://amzn.to/2GxxyiS
- *       $8.14 USD (5 pc)  <AMAZON PRIME>
+ *  1 @  Serpac A21 ABS Plastic Enclosure, 4-1/4" Length x 2.60" Width x 1-1/8" Height, Black
+ *       http://amzn.to/2ETORgP
+ *       $6.82 USD <AMAZON PRIME>
  *
  *  OPTIONAL COMPONENTS:
  *
