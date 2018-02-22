@@ -112,6 +112,10 @@
  *       http://amzn.to/2BBTWrU
  *       $31.85 USD  <AMAZON PRIME>
  *
+ *  1 @  Hammond 1591TSBK Plastic Enclosure (Black)
+ *       http://amzn.to/2CA4812
+ *      $8.10 USB  <AMAZON PRIME>
+ *
  *  1 @  10-wire Ribbon Cable (Hook up wire)
  *       http://amzn.to/2ECzv0N
  *       $6.98 USD  <AMAZON PRIME>
@@ -122,7 +126,7 @@
  *       http://amzn.to/2EDDZV2
  *       $15.88 USD  <AMAZON PRIME>
  *
- *  1 @  Micro USB Regulated Power Supply (5VDC 1AA)
+ *  1 @  Micro USB Regulated Power Supply (5VDC 1A)
  *       http://amzn.to/2HqFFyT
  *       $7.99 USD  <AMAZON PRIME>
  *
@@ -164,7 +168,7 @@
  * ------------------------------------------------------------------------
  */
 
-/* REQUIRED FOR WIRELENESS NETWORK ON ARDUINO MKR1000 */
+/* REQUIRED FOR WIRELESS NETWORK ON ARDUINO MKR1000 */
 #include <WiFiClient.h>
 #include <WiFi101.h>
 

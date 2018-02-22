@@ -176,7 +176,7 @@
  * ------------------------------------------------------------------------
  */
 
-/* REQUIRED FOR WIRELENESS NETWORK ON ESP8622 */
+/* REQUIRED FOR WIRELESS NETWORK ON ESP8622 */
 #include <ESP8266WiFi.h>
 
 /* REQUIRED FOR MONOCLE GATEWAY CLIENT */

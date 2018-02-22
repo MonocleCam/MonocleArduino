@@ -38,7 +38,7 @@ static bool zoomCallbackPending = false;
 static int presetCallbackPending = 0;
 
 /**
- * Constructor
+ * Default Constructor
  */
 MonocleMenu::MonocleMenu(MenuComponentRenderer const& renderer) :
     ms(renderer),
@@ -77,7 +77,6 @@ MonocleMenu::MonocleMenu(MenuComponentRenderer const& renderer) :
   ms.get_root_menu().add_item(&miHome);
   ms.get_root_menu().add_menu(&mnuPresetsPage1);
 
-
   // build presets submenu (page 1)
   mnuPresetsPage1.add_item(&miPresetsBack1);
   mnuPresetsPage1.add_item(&miPreset1);
@@ -108,24 +107,21 @@ MonocleMenu::MonocleMenu(MenuComponentRenderer const& renderer) :
   mnuPresetsPage5.add_item(&miPreset9);
 }
 
+// INTERNAL CALLBACK HANDLERS
 void MonocleMenu::internal_monocle_menu_callback(MenuComponent* p_menu_component){
   updateTimer = millis();
 }
-
 void MonocleMenu::internal_monocle_menu_exit_callback(MenuComponent* p_menu_component){
   deactivate();
 }
-
 void MonocleMenu::internal_monocle_menu_home_callback(MenuComponent* p_menu_component){
   homeCallbackPending = true;
   deactivate();
 }
-
 void MonocleMenu::internal_monocle_menu_zoom_callback(MenuComponent* p_menu_component){
   zoomCallbackPending = true;
   deactivate();
 }
-
 void MonocleMenu::internal_monocle_menu_preset1_callback(MenuComponent* p_menu_component){
   internal_monocle_menu_preset_callback(p_menu_component, 1);
 }
@@ -153,16 +149,22 @@ void MonocleMenu::internal_monocle_menu_preset8_callback(MenuComponent* p_menu_c
 void MonocleMenu::internal_monocle_menu_preset9_callback(MenuComponent* p_menu_component){
   internal_monocle_menu_preset_callback(p_menu_component, 9);
 }
-
 void MonocleMenu::internal_monocle_menu_preset_callback(MenuComponent* p_menu_component, const int preset){
   presetCallbackPending = preset;
   deactivate();
 }
 
+/**
+ * FORCE A REFRESH OF THE MENU
+ */
 void MonocleMenu::refresh() {
   ms.display();
 }
 
+/**
+ * THIS FUNTION MUST BE CALLED IN THE PROGRAM 
+ * MAIN LOOP TO SERVICE THE MENU SYSTEM AND EVENTS
+ */
 void MonocleMenu::loop() {
   // if the menu is active and we have reached out update timer, then refresh the display on the menu
   if(active && updateTimer > 0 && millis() - updateTimer > MONOCLE_MENU_DISPLAY_INTERVAL) {
@@ -192,6 +194,9 @@ void MonocleMenu::loop() {
   }
 }
 
+/**
+ * ACTIVATE THE MENU SYSTEM
+ */
 void MonocleMenu::activate(){
   active = true;  // update active state flag
   ms.reset();     // reset the menu system
@@ -199,61 +204,111 @@ void MonocleMenu::activate(){
   activateCallbackPending = true;
 }
 
+/**
+ * DEACTIVATE THE MENU SYSTEM
+ */
 void MonocleMenu::deactivate(){
   active = false;  // update active state flag
   updateTimer = 0;
   deactivateCallbackPending = true;
 }
 
+/**
+ * RETURNS TRUE OF THE MENU SYSTEM IS ACTIVE
+ */
 bool MonocleMenu::isActive(){
   return active;
 }
 
+/**
+ * SELECT THE CURRENT FOCUSED MENU ITEM
+ */
 void MonocleMenu::select(){
   ms.select();
   updateTimer = millis();
 }
 
+/**
+ * RESET THE MENU SYSTEM AND ALL MENU ITEMS
+ */
 void MonocleMenu::reset(){
   ms.reset();
   updateTimer = millis();
 }
 
+/**
+ * MOVE CURSOR TO THE NEXT MENU ITEM IN THE LIST
+ */
 bool MonocleMenu::next(){
   updateTimer = millis();
   return ms.next();
 }
 
+/**
+ * MOVE CURSOR TO THE PREVIOUS MENU ITEM IN THE LIST
+ */
 bool MonocleMenu::prev(){
   updateTimer = millis();
   return ms.prev();
 }
 
+/**
+ * MOVE CURSOR BACK TO THE PARENT MENU OF THE CURRENT SUB-MENU
+ */
 bool MonocleMenu::back(){
   updateTimer = millis();
   return ms.back();
 }
 
+/**
+ * ADD THE ZOOM MENU ITEM FOR CUSTOM ZOOM 
+ * INTEGRATION WHEN NO THIRD AXIS IS AVAILABLE
+ */
 void MonocleMenu::addZoomMenu(){
   ms.get_root_menu().add_item(&miZoom);
 }
 
+/**
+ * REGISTER CALLBACK FUNCTION POINTER FOR 
+ * NOTIFICATION CALLBACKS WHEN THE MENU SYSTEM
+ * BECOMES ACTIVE
+ */
 void MonocleMenu::onActivate(void (*callback)(void)) {
     this->activateCallback = callback;
 }
 
+/**
+ * REGISTER CALLBACK FUNCTION POINTER FOR 
+ * NOTIFICATION CALLBACKS WHEN THE MENU SYSTEM
+ * BECOMES INACTIVE
+ */
 void MonocleMenu::onDeactivate(void (*callback)(void)) {
     deactivateCallback = callback;
 }
 
+/**
+ * REGISTER CALLBACK FUNCTION POINTER FOR 
+ * NOTIFICATION CALLBACKS WHEN THE 'HOME'
+ * MENU ITEM IS SELECTED
+ */
 void MonocleMenu::onHome(void (*callback)(void)) {
     this->homeCallback = callback;
 }
 
+/**
+ * REGISTER CALLBACK FUNCTION POINTER FOR 
+ * NOTIFICATION CALLBACKS WHEN THE 'ZOOM'
+ * MENU ITEM IS SELECTED
+ */
 void MonocleMenu::onZoom(void (*callback)(void)) {
     this->zoomCallback = callback;
 }
 
+/**
+ * REGISTER CALLBACK FUNCTION POINTER FOR 
+ * NOTIFICATION CALLBACKS WHEN ON OF THE 'PRESET'
+ * MENU ITEMS IS SELECTED
+ */
 void MonocleMenu::onPreset(void (*callback)(const int)) {
     this->presetCallback = callback;
 }

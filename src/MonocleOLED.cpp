@@ -30,7 +30,9 @@
 
 #include "MonocleOLED.h"
 
-
+/**
+ * MONOCLE LOGO BITMAP
+ */
 static const unsigned char PROGMEM MONOCLE_LOGO [] = {
   0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
   0x00, 0x07, 0x00, 0xE0, 0x0F, 0xC0, 0x38, 0x0C, 0x07, 0xE0, 0x00, 0x79, 0x80, 0x0F, 0xF0, 0x00,
@@ -51,19 +53,21 @@ static const unsigned char PROGMEM MONOCLE_LOGO [] = {
 };
 
 /**
- * Constructor
+ * Default Constructors
  */
 MonocleOLED::MonocleOLED(const int width, const int height) : Adafruit_SSD1306() {
   this->width = width;
   this->height = height;
   if(height >= 64) this->textLineStart = 24;
 }
-
 MonocleOLED::MonocleOLED(const int width, const int height, const int reset) : Adafruit_SSD1306(reset) {
   this->width = width;
   this->height = height;
 }
 
+/**
+ * INITIALIZE THE OLED DISPLAY
+ */
 void MonocleOLED::init() {
   this->clearDisplay();
   this->logo();
@@ -81,6 +85,9 @@ void MonocleOLED::init() {
   delay(1);
 }
 
+/**
+ * DRAW THE MONOCLE LOGO
+ */
 void MonocleOLED::logo(bool display){
   this->drawBitmap(0, 0,  MONOCLE_LOGO, width, 16, 1);
   //if(this->textLineStart > 18){
@@ -89,31 +96,49 @@ void MonocleOLED::logo(bool display){
   if(display) this->display();
 }
 
+/**
+ * CLEAR THE TEXT LINES REGION (lines 1-4)
+ */
 void MonocleOLED::clearText(bool display){
   this->writeFillRect(0, this->textLineStart, this->width, this->height, BLACK);
   if(display) this->display();
 }
 
+/**
+ * CLEAR TEXT LINE 1
+ */
 void MonocleOLED::clearLine1(bool display){
   this->writeFillRect(0, this->textLineStart, this->width, 8, BLACK);
   if(display) this->display();
 }
 
+/**
+ * CLEAR TEXT LINE 2
+ */
 void MonocleOLED::clearLine2(bool display){
   this->writeFillRect(0, this->textLineStart+this->textLineHeight, this->width, 8, BLACK);
   if(display) this->display();
 }
 
+/**
+ * CLEAR TEXT LINE 3
+ */
 void MonocleOLED::clearLine3(bool display){
   this->writeFillRect(0, this->textLineStart+(this->textLineHeight * 2), this->width, 8, BLACK);
   if(display) this->display();
 }
 
+/**
+ * CLEAR TEXT LINE 4
+ */
 void MonocleOLED::clearLine4(bool display){
   this->writeFillRect(0, this->textLineStart+(this->textLineHeight * 3), this->width, 8, BLACK);
   if(display) this->display();
 }
 
+/**
+ * PRINT TEXT TO A SPECIFIC LINE NUMBER
+ */
 void MonocleOLED::printLine(const int line, const String& data, bool display){
   //this->writeFillRect(0, 24, 128, 8, BLACK);
   this->setCursor(0, (line*this->textLineHeight) + this->textLineStart);
@@ -121,6 +146,9 @@ void MonocleOLED::printLine(const int line, const String& data, bool display){
   if(display) this->display();
 }
 
+/**
+ * PRINT TEXT TO LINE 1
+ */
 void MonocleOLED::printLine1(const String& data, bool display){
   int startY = this->textLineStart;
   this->writeFillRect(0, startY, this->width, this->textLineHeight, BLACK);
@@ -128,6 +156,10 @@ void MonocleOLED::printLine1(const String& data, bool display){
   this->println(data);
   if(display) this->display();
 }
+
+/**
+ * PRINT TEXT TO LINE 2
+ */
 void MonocleOLED::printLine2(const String& data, bool display){
   int startY = this->textLineStart+(this->textLineHeight * 1);
   this->writeFillRect(0, startY, this->width, this->textLineHeight, BLACK);
@@ -135,6 +167,10 @@ void MonocleOLED::printLine2(const String& data, bool display){
   this->println(data);
   if(display) this->display();
 }
+
+/**
+ * PRINT TEXT TO LINE 3
+ */
 void MonocleOLED::printLine3(const String& data, bool display){
   int startY = this->textLineStart+(this->textLineHeight * 2);
   this->writeFillRect(0, startY, this->width, this->textLineHeight, BLACK);
@@ -142,6 +178,10 @@ void MonocleOLED::printLine3(const String& data, bool display){
   this->println(data);
   if(display) this->display();
 }
+
+/**
+ * PRINT TEXT TO LINE 4
+ */
 void MonocleOLED::printLine4(const String& data, bool display){
   int startY = this->textLineStart+(this->textLineHeight * 3);
   this->writeFillRect(0, startY, this->width, this->textLineHeight, BLACK);
@@ -150,6 +190,9 @@ void MonocleOLED::printLine4(const String& data, bool display){
   if(display) this->display();
 }
 
+/**
+ * PRINT TEXT TO MULTIPLE LINES
+ */
 void MonocleOLED::printText(const String& line1, const String& line2, const String& line3, const String& line4, bool display){
   this->printLine1(line1, false);
   this->printLine2(line2, false);

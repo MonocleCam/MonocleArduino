@@ -176,7 +176,7 @@
  * ------------------------------------------------------------------------
  */
 
-/* REQUIRED FOR WIRELENESS NETWORK ON ARDUINO MKR1000 */
+/* REQUIRED FOR WIRELESS NETWORK ON ARDUINO MKR1000 */
 #include <WiFiClient.h>
 #include <WiFi101.h>
 

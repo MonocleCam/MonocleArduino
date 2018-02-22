@@ -33,23 +33,136 @@ class MonocleGatewayClient
      WebSocketClient _ws;
        
    public:
-    /*
-     * Default Constructor
-     */
+   
+     /*
+      * Default Constructors
+      */
      MonocleGatewayClient(Client& client, const char* address, uint16_t port);
      MonocleGatewayClient(Client& client, const String& address, uint16_t port);
      MonocleGatewayClient(Client& client, const IPAddress& address, uint16_t port);
 
+    /**
+     * START THE CONNECTION TO THE 
+     * TO THE MONOCLE GATEWAY
+     */
      void begin();
+
+    /**
+     * DETEMINE THE CONNECTION STATE
+     * RETURNS 'true' IF CURRENTLY CONNECTED 
+     * TO THE MONOCLE GATEWAY
+     */     
      bool connected();
+
+     /**
+      * SEND INSTRUCTION TO MONOCLE GATEWAY FOR THE  
+      * ACTIVE CAMERA TO STOP ALL MOVEMENT IMMEDIATELY
+      */     
      void stop();
-     void home();     
+    
+     /**
+      * SEND INSTRUCTION TO MONOCLE GATEWAY FOR THE  
+      * ACTIVE CAMERA TO RECALL AND MOVE TO ITS 
+      * PRECONFIGURED HOME POSITION
+      */
+     void home();
+    
+     /**
+      * SEND INSTRUCTION TO MONOCLE GATEWAY FOR THE  
+      * ACTIVE CAMERA TO MOVE TO THE REQUESTED PRESET
+      */          
      void preset(const int preset);     
+     
+     /**
+      * SEND INSTRUCTION TO MONOCLE GATEWAY FOR THE  
+      * ACTIVE CAMERA TO BEGIN A COMPLEX PTZ MOVEMENT 
+      * AT A GIVEN DIRECTION AND SPEED FOR EACH AXIS.
+      * --------------------------------------------
+      * SUPPORTED PAN VALUES:
+      *   -3 : PAN LEFT FAST
+      *   -2 : PAN LEFT MED
+      *   -1 : PAN LEFT SLOW
+      *    0 : PAN STOP
+      *    1 : PAN RIGHT SLOW
+      *    2 : PAN RIGHT MED
+      *    3 : PAN RIGHT FAST
+      *    
+      * SUPPORTED TILT VALUES:
+      *   -3 : TILT DOWN FAST
+      *   -2 : TILT DOWN MED
+      *   -1 : TILT DOWN SLOW
+      *    0 : TILT STOP
+      *    1 : TILE UP SLOW
+      *    2 : TILE UP MED
+      *    3 : TILE UP FAST
+      *    
+      * SUPPORTED ZOOM VALUES:
+      *   -3 : ZOOM OUT FAST
+      *   -2 : ZOOM OUT MED
+      *   -1 : ZOOM OUT SLOW
+      *    0 : ZOOM STOP
+      *    1 : ZOOM IN SLOW
+      *    2 : ZOOM IN MED
+      *    3 : ZOOM IN FAST
+      */
      void ptz(const int pan, const int tilt, const int zoom);
+
+     /**
+      * SEND INSTRUCTION TO MONOCLE GATEWAY FOR THE  
+      * ACTIVE CAMERA TO BEGIN PANNING AT A GIVEN 
+      * DIRECTION AND SPEED.
+      * --------------------------------------------
+      * SUPPORTED PAN VALUES:
+      *   -3 : PAN LEFT FAST
+      *   -2 : PAN LEFT MED
+      *   -1 : PAN LEFT SLOW
+      *    0 : PAN STOP
+      *    1 : PAN RIGHT SLOW
+      *    2 : PAN RIGHT MED
+      *    3 : PAN RIGHT FAST
+      */     
      void pan(const int pan);
+
+     /**
+      * SEND INSTRUCTION TO MONOCLE GATEWAY FOR THE  
+      * ACTIVE CAMERA TO BEGIN TILTING AT A GIVEN 
+      * DIRECTION AND SPEED.
+      * --------------------------------------------
+      * SUPPORTED TILT VALUES:
+      *   -3 : TILT DOWN FAST
+      *   -2 : TILT DOWN MED
+      *   -1 : TILT DOWN SLOW
+      *    0 : TILT STOP
+      *    1 : TILE UP SLOW
+      *    2 : TILE UP MED
+      *    3 : TILE UP FAST
+      */     
      void tilt(const int tilt);
+
+     /**
+      * SEND INSTRUCTION TO MONOCLE GATEWAY FOR THE  
+      * ACTIVE CAMERA TO BEGIN ZOOMING AT A GIVEN 
+      * DIRECTION AND SPEED.
+      * --------------------------------------------
+      * SUPPORTED ZOOM VALUES:
+      *   -3 : ZOOM OUT FAST
+      *   -2 : ZOOM OUT MED
+      *   -1 : ZOOM OUT SLOW
+      *    0 : ZOOM STOP
+      *    1 : ZOOM IN SLOW
+      *    2 : ZOOM IN MED
+      *    3 : ZOOM IN FAST
+      */     
      void zoom(const int zoom);
+
+     /**
+      * SEND RAW COMMAND (STRING) TO MONOCLE GATEWAY 
+      */
      void send(const String& data);
+
+     /**
+      * SEND RAW COMMAND (CAHR*) TO MONOCLE GATEWAY 
+      */
      void send(const char* data);
 };
 

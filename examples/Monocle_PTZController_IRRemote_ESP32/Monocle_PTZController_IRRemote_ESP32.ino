@@ -166,7 +166,7 @@
  * ------------------------------------------------------------------------
  */
 
-/* REQUIRED FOR WIRELENESS NETWORK ON ESP32 */
+/* REQUIRED FOR WIRELESS NETWORK ON ESP32 */
 #include <WiFi.h>
 
 /* REQUIRED FOR MONOCLE GATEWAY CLIENT */

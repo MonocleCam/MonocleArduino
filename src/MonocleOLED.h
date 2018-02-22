@@ -38,23 +38,74 @@ class MonocleOLED : public Adafruit_SSD1306
 
    public:
     /*
-     * Default Constructor
+     * Default Constructors
      */
      MonocleOLED(const int width, const int height);
      MonocleOLED(const int width, const int height, const int reset);
 
+    /**
+     * INITIALIZE THE OLED DISPLAY
+     */
      void init();
+
+    /**
+     * DRAW THE MONOCLE LOGO
+     */     
      void logo(bool display = true);
+
+    /**
+     * CLEAR THE TEXT LINES REGION (lines 1-4)
+     */
      void clearText(bool display = true);
+
+    /**
+     * CLEAR TEXT LINE 1
+     */
      void clearLine1(bool display = true);
+
+    /**
+     * CLEAR TEXT LINE 2
+     */
      void clearLine2(bool display = true);
+
+    /**
+     * CLEAR TEXT LINE 3
+     */     
      void clearLine3(bool display = true);
+
+    /**
+     * CLEAR TEXT LINE 4
+     */     
      void clearLine4(bool display = true);
+
+     /**
+      * PRINT TEXT TO MULTIPLE LINES
+      */
      void printText(const String& line1 = "", const String& line2 = "", const String& line3 = "", const String& line4 = "", bool display = true);
+
+     /**
+      * PRINT TEXT TO A SPECIFIC LINE NUMBER
+      */
      void printLine(const int line, const String& data, bool display = true);
+
+     /**
+      * PRINT TEXT TO LINE 1
+      */
      void printLine1(const String& data, bool display = true);
+
+     /**
+      * PRINT TEXT TO LINE 2
+      */
      void printLine2(const String& data, bool display = true);
+
+     /**
+      * PRINT TEXT TO LINE 3
+      */
      void printLine3(const String& data, bool display = true);
+
+     /**
+      * PRINT TEXT TO LINE 4
+      */
      void printLine4(const String& data, bool display = true);
 };
 

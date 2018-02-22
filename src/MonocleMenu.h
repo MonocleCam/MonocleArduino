@@ -35,6 +35,7 @@
 class MonocleMenu
 {
    private:
+      /* INTERNAL DATA ITEMS FOR MENU SYSTEM */
       MenuSystem ms;
       MenuItem miExit;
       MenuItem miHome;
@@ -58,9 +59,6 @@ class MonocleMenu
       MenuItem miPreset7;
       MenuItem miPreset8;
       MenuItem miPreset9;
-
-      //bool active = false;
-//      int updateTimer = 0;
 
       /* INTERNAL CALLBACKS */
       void internal_monocle_menu_callback(MenuComponent* p_menu_component);
@@ -86,29 +84,104 @@ class MonocleMenu
       void (*presetCallback)(const int preset);
 
    public:
-    /*
+    /**
      * Default Constructor
      */
      MonocleMenu(MenuComponentRenderer const& renderer);
 
+     /**
+      * FORCE A REFRESH OF THE MENU
+      */
      void refresh();
+
+     /**
+      * THIS FUNTION MUST BE CALLED IN THE PROGRAM 
+      * MAIN LOOP TO SERVICE THE MENU SYSTEM AND EVENTS
+      */
      void loop();
+
+     /**
+      * ACTIVATE THE MENU SYSTEM
+      */
      void activate();
+
+     /**
+      * DEACTIVATE THE MENU SYSTEM
+      */
      void deactivate();
+
+     /**
+      * RETURNS TRUE OF THE MENU SYSTEM IS ACTIVE
+      */
      bool isActive();
+
+     /**
+      * SELECT THE CURRENT FOCUSED MENU ITEM
+      */
      void select();
+
+     /**
+      * RESET THE MENU SYSTEM AND ALL MENU ITEMS
+      */
      void reset();
+
+     /**
+      * MOVE CURSOR TO THE NEXT MENU ITEM IN THE LIST
+      */
      bool next();
+
+     /**
+      * MOVE CURSOR TO THE PREVIOUS MENU ITEM IN THE LIST
+      */
      bool prev();
+
+     /**
+      * MOVE CURSOR BACK TO THE PARENT MENU OF THE CURRENT SUB-MENU
+      */
      bool back();
+
+     /**
+      * ADD THE ZOOM MENU ITEM FOR CUSTOM ZOOM 
+      * INTEGRATION WHEN NO THIRD AXIS IS AVAILABLE
+      */
      void addZoomMenu();
 
+     /**
+      * REGISTER CALLBACK FUNCTION POINTER FOR 
+      * NOTIFICATION CALLBACKS WHEN THE MENU SYSTEM
+      * BECOMES ACTIVE
+      */
      void onActivate(void (*activateCallback)(void));
+
+     /**
+      * REGISTER CALLBACK FUNCTION POINTER FOR 
+      * NOTIFICATION CALLBACKS WHEN THE MENU SYSTEM
+      * BECOMES INACTIVE
+      */
      void onDeactivate(void (*deactivateCallback)(void));
+
+     /**
+      * REGISTER CALLBACK FUNCTION POINTER FOR 
+      * NOTIFICATION CALLBACKS WHEN THE 'HOME'
+      * MENU ITEM IS SELECTED
+      */
      void onHome(void (*homeCallback)(void));
+
+     /**
+      * REGISTER CALLBACK FUNCTION POINTER FOR 
+      * NOTIFICATION CALLBACKS WHEN THE 'ZOOM'
+      * MENU ITEM IS SELECTED
+      */
      void onZoom(void (*zoomCallback)(void));
+
+     /**
+      * REGISTER CALLBACK FUNCTION POINTER FOR 
+      * NOTIFICATION CALLBACKS WHEN ON OF THE 'PRESET'
+      * MENU ITEMS IS SELECTED
+      */
      void onPreset(void (*presetCallback)(const int));
 
+     // using for casting internally
      using SelectFnPtr = void (*)(MenuComponent* menu_component);
 };
 
