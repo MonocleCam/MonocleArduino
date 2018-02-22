@@ -42,6 +42,7 @@ The library includes the following Arduino sample PTZ controller projects:
 ![example-projects](examples/example-projects.png)
 
 ___
+
 <a name="deluxe">
 ### Deluxe 3-Axis Joystick PTZ Controller
 
@@ -179,7 +180,7 @@ __ESP32__
 ![Monocle_PTZController_AtariJoystick_ESP32](examples/Monocle_PTZController_AtariJoystick_ESP32/extras/Monocle_PTZController_AtariJoystick_ESP32.png)
 
 ___
-<a name="ireremote">
+<a name="irremote">
 
 ### IR Remote Control PTZ Controller
 
