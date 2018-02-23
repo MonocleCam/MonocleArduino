@@ -15,7 +15,7 @@
  *  Author:   Robert Savage
  *  Date:     2018-02-18
  *  Website:  http://monoclecam.com
- *  
+ *
  * -------------------------------------------------------------------
  *        COPYRIGHT SHADEBLUE, LLC @ 2018, ALL RIGHTS RESERVED
  * -------------------------------------------------------------------
@@ -26,14 +26,28 @@
 #define MONOCLE_GATEWAY_CLIENT_H
 
 #include <ArduinoHttpClient.h>
+#include <ArduinoJson.h>
 
-class MonocleGatewayClient 
-{   
+#define MONOCLE_GATEWAY_PROCESSING_INTERVAL 1000
+
+struct CameraSource {
+  const char* uuid;
+  const char* name;
+  const char* manufacturer;
+  const char* model;
+  bool  ptz;
+  bool  error;
+  const char* errorMessage;
+};
+
+class MonocleGatewayClient
+{
    private:
      WebSocketClient _ws;
-       
+     unsigned long _processingTimer;
+     CameraSource _camera;
+
    public:
-   
      /*
       * Default Constructors
       */
@@ -41,41 +55,44 @@ class MonocleGatewayClient
      MonocleGatewayClient(Client& client, const String& address, uint16_t port);
      MonocleGatewayClient(Client& client, const IPAddress& address, uint16_t port);
 
+     /* CALLBACKS */
+     void (*cameraCallback)(CameraSource& camera);
+
     /**
-     * START THE CONNECTION TO THE 
+     * START THE CONNECTION TO THE
      * TO THE MONOCLE GATEWAY
      */
      void begin();
 
     /**
      * DETEMINE THE CONNECTION STATE
-     * RETURNS 'true' IF CURRENTLY CONNECTED 
+     * RETURNS 'true' IF CURRENTLY CONNECTED
      * TO THE MONOCLE GATEWAY
-     */     
+     */
      bool connected();
 
      /**
-      * SEND INSTRUCTION TO MONOCLE GATEWAY FOR THE  
+      * SEND INSTRUCTION TO MONOCLE GATEWAY FOR THE
       * ACTIVE CAMERA TO STOP ALL MOVEMENT IMMEDIATELY
-      */     
+      */
      void stop();
-    
+
      /**
-      * SEND INSTRUCTION TO MONOCLE GATEWAY FOR THE  
-      * ACTIVE CAMERA TO RECALL AND MOVE TO ITS 
+      * SEND INSTRUCTION TO MONOCLE GATEWAY FOR THE
+      * ACTIVE CAMERA TO RECALL AND MOVE TO ITS
       * PRECONFIGURED HOME POSITION
       */
      void home();
-    
+
      /**
-      * SEND INSTRUCTION TO MONOCLE GATEWAY FOR THE  
+      * SEND INSTRUCTION TO MONOCLE GATEWAY FOR THE
       * ACTIVE CAMERA TO MOVE TO THE REQUESTED PRESET
-      */          
-     void preset(const int preset);     
-     
+      */
+     void preset(const int preset);
+
      /**
-      * SEND INSTRUCTION TO MONOCLE GATEWAY FOR THE  
-      * ACTIVE CAMERA TO BEGIN A COMPLEX PTZ MOVEMENT 
+      * SEND INSTRUCTION TO MONOCLE GATEWAY FOR THE
+      * ACTIVE CAMERA TO BEGIN A COMPLEX PTZ MOVEMENT
       * AT A GIVEN DIRECTION AND SPEED FOR EACH AXIS.
       * --------------------------------------------
       * SUPPORTED PAN VALUES:
@@ -86,7 +103,7 @@ class MonocleGatewayClient
       *    1 : PAN RIGHT SLOW
       *    2 : PAN RIGHT MED
       *    3 : PAN RIGHT FAST
-      *    
+      *
       * SUPPORTED TILT VALUES:
       *   -3 : TILT DOWN FAST
       *   -2 : TILT DOWN MED
@@ -95,7 +112,7 @@ class MonocleGatewayClient
       *    1 : TILE UP SLOW
       *    2 : TILE UP MED
       *    3 : TILE UP FAST
-      *    
+      *
       * SUPPORTED ZOOM VALUES:
       *   -3 : ZOOM OUT FAST
       *   -2 : ZOOM OUT MED
@@ -108,8 +125,8 @@ class MonocleGatewayClient
      void ptz(const int pan, const int tilt, const int zoom);
 
      /**
-      * SEND INSTRUCTION TO MONOCLE GATEWAY FOR THE  
-      * ACTIVE CAMERA TO BEGIN PANNING AT A GIVEN 
+      * SEND INSTRUCTION TO MONOCLE GATEWAY FOR THE
+      * ACTIVE CAMERA TO BEGIN PANNING AT A GIVEN
       * DIRECTION AND SPEED.
       * --------------------------------------------
       * SUPPORTED PAN VALUES:
@@ -120,12 +137,12 @@ class MonocleGatewayClient
       *    1 : PAN RIGHT SLOW
       *    2 : PAN RIGHT MED
       *    3 : PAN RIGHT FAST
-      */     
+      */
      void pan(const int pan);
 
      /**
-      * SEND INSTRUCTION TO MONOCLE GATEWAY FOR THE  
-      * ACTIVE CAMERA TO BEGIN TILTING AT A GIVEN 
+      * SEND INSTRUCTION TO MONOCLE GATEWAY FOR THE
+      * ACTIVE CAMERA TO BEGIN TILTING AT A GIVEN
       * DIRECTION AND SPEED.
       * --------------------------------------------
       * SUPPORTED TILT VALUES:
@@ -136,12 +153,12 @@ class MonocleGatewayClient
       *    1 : TILE UP SLOW
       *    2 : TILE UP MED
       *    3 : TILE UP FAST
-      */     
+      */
      void tilt(const int tilt);
 
      /**
-      * SEND INSTRUCTION TO MONOCLE GATEWAY FOR THE  
-      * ACTIVE CAMERA TO BEGIN ZOOMING AT A GIVEN 
+      * SEND INSTRUCTION TO MONOCLE GATEWAY FOR THE
+      * ACTIVE CAMERA TO BEGIN ZOOMING AT A GIVEN
       * DIRECTION AND SPEED.
       * --------------------------------------------
       * SUPPORTED ZOOM VALUES:
@@ -152,18 +169,40 @@ class MonocleGatewayClient
       *    1 : ZOOM IN SLOW
       *    2 : ZOOM IN MED
       *    3 : ZOOM IN FAST
-      */     
+      */
      void zoom(const int zoom);
 
      /**
-      * SEND RAW COMMAND (STRING) TO MONOCLE GATEWAY 
+      * SEND RAW COMMAND (STRING) TO MONOCLE GATEWAY
       */
      void send(const String& data);
 
      /**
-      * SEND RAW COMMAND (CAHR*) TO MONOCLE GATEWAY 
+      * SEND RAW COMMAND (CHAR*) TO MONOCLE GATEWAY
       */
      void send(const char* data);
+
+     /**
+      * THIS FUNTION MUST BE CALLED IN THE PROGRAM
+      * MAIN LOOP TO SERVICE THE MONOCLE GATEWAY CLIENT
+      * AND DISPATCH ANY EVENTS
+      */
+     void loop();
+
+     /**
+      * REGISTERS A CALLBACK FUNCTION POINTER FOR CAMERA SOURCE CHANGES
+      */
+     void onCameraChange(void (*cameraCallback)(CameraSource& camera));
+
+     /**
+      * GET THE ACTIVE CAMERA SOURCE
+      */
+     CameraSource activeCameraSource();
+
+     /**
+      * GET THE ACTIVE CAMERA ENABLED STATE
+      */
+     bool isCameraEnabled();
 };
 
 #endif //MONOCLE_GATEWAY_CLIENT_H

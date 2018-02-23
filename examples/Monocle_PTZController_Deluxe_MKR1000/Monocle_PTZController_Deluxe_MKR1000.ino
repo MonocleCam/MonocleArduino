@@ -145,6 +145,10 @@
   *   https://github.com/arduino-libraries/ArduinoHttpClient
   *   (used for web-socket communication)
   *
+  * - ArduinoJson
+  *   https://arduinojson.org
+  *   (used for decoding communication messages)
+  *
   * - Bounce2
   *   https://github.com/thomasfredericks/Bounce2
   *   (used for debouncing the joystick button)
@@ -174,6 +178,7 @@
 
 /* REQUIRED FOR MONOCLE GATEWAY CLIENT */
 #include <ArduinoHttpClient.h>
+#include <ArduinoJson.h>
 
 /* REQUIRED FOR MONOCLE PTZ JOYSTICK */
 #include <Bounce2.h>
@@ -260,9 +265,6 @@
 const char* ssid     = WIFI_SSID;
 const char* password = WIFI_PASS;
 
-// local connection state tracking variable
-bool gateway_connected = false;
-
 // wifi client; needed for Monocle Gateway Client
 WiFiClient wifi;
 
@@ -334,6 +336,9 @@ void setup() {
   menu.onDeactivate(&menuDeactivateHandler);
   menu.onHome(&menuHomeHandler);
   menu.onPreset(&menuPresetHandler);
+
+  // register for active camera source changes
+  monocle.onCameraChange(&cameraChangeHandler);
 
   // display connecting status on OLED
   display.clearText(false);
@@ -524,6 +529,30 @@ void menuPresetHandler(const int preset){
   monocle.preset(preset);
 }
 
+/**
+ * ACTIVE CAMERA SOURCE CHANGED CALLBACK
+ * ----------------------------------------------
+ * This callback handler is invoked whenever
+ * the active camera source has changed.
+ */
+void cameraChangeHandler(CameraSource& camera){
+  Serial.println(">>> NEW CAMERA SOURCE");
+  Serial.print(" - UUID : ");
+  Serial.println(camera.uuid);
+  Serial.print(" - NAME : ");
+  Serial.println(camera.name);
+  Serial.print(" - MANUFACTURER : ");
+  Serial.println(camera.manufacturer);
+  Serial.print(" - MODEL : ");
+  Serial.println(camera.model);
+  if(camera.ptz)
+    Serial.println(" - PTZ-SUPPORTED : TRUE");
+  else
+    Serial.println(" - PTZ-SUPPORTED : FALSE");
+
+  if(camera.error)
+    Serial.println(camera.errorMessage);
+}
 
 /**
  * ------------------------------------------------------------------------
@@ -531,9 +560,6 @@ void menuPresetHandler(const int preset){
  * ------------------------------------------------------------------------
  */
 void loop() {
-  // reset local connection tracking state
-  gateway_connected = false;
-
   // display connecting status on OLED
   display.printText("Connecting to Gateway", MONOCLE_GATEWAY_ADDRESS);
 
@@ -543,17 +569,20 @@ void loop() {
   // attmept to connect to the Monocle Gateway now
   monocle.begin();
 
-  // continious loop while we are connected to the Monocle Gateway
+  // let the user know we are connected to the Monocle Gateway
+  if (monocle.connected()) {
+    Serial.println("Successfully connected to Monocle Gateway.");
+    display.printText("Gateway Connected");
+    delay(1000);
+    displayCameraInfo();
+  }
+
+  // continuous loop while we are connected to the Monocle Gateway
   while (monocle.connected()) {
 
-    // let the user know we are connected to the Monocle Gateway
-    if(!gateway_connected) {
-      gateway_connected = true; // update local tracking state
-      Serial.println("Successfully connected to Monocle Gateway.");
-      display.printText("Gateway Connected");
-      delay(1000);
-      displayCameraInfo();
-    }
+    // we must call the 'loop' function on the Monocle
+    // client to service communication and raise events
+    monocle.loop();
 
     // we must call the 'loop' function on the joystick
     // class to service inputs and raise events

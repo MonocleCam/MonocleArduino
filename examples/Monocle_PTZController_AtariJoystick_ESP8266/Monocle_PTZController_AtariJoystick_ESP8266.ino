@@ -165,6 +165,10 @@
   *   https://github.com/arduino-libraries/ArduinoHttpClient
   *   (used for web-socket communication)
   *
+  * - ArduinoJson
+  *   https://arduinojson.org
+  *   (used for decoding communication messages)
+  *
   * - Bounce2
   *   https://github.com/thomasfredericks/Bounce2
   *   (used for debouncing the joystick button)  *
@@ -181,6 +185,7 @@
 
 /* REQUIRED FOR MONOCLE GATEWAY CLIENT */
 #include <ArduinoHttpClient.h>
+#include <ArduinoJson.h>
 
 /* REQUIRED FOR JOYSTICK DIGITAL INPUTS */
 #include <Bounce2.h>
@@ -340,8 +345,12 @@ void loop() {
     Serial.println("Successfully connected to Monocle Gateway.");
   }
 
-  // continious loop while we are connected to the Monocle Gateway
+  // continuous loop while we are connected to the Monocle Gateway
   while (monocle.connected()) {
+
+    // we must call the 'loop' function on the Monocle
+    // client to service communication and raise events
+    monocle.loop();
 
     // iterate over all the joystick pins in the debounce instance and update them
     for (int i = 0; i < sizeof(JOYSTICK_PINS); i++)  {

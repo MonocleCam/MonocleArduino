@@ -139,9 +139,20 @@ void MonocleOLED::clearLine4(bool display){
 /**
  * PRINT TEXT TO A SPECIFIC LINE NUMBER
  */
-void MonocleOLED::printLine(const int line, const String& data, bool display){
-  //this->writeFillRect(0, 24, 128, 8, BLACK);
+void MonocleOLED::printLine(const int line, const String& data, bool display, bool center){
+  this->writeFillRect(0, (line*this->textLineHeight) + this->textLineStart, 128, 8, BLACK);
   this->setCursor(0, (line*this->textLineHeight) + this->textLineStart);
+
+  // pad for text centering
+  if(center){
+  int pad = LINE_CHARACTER_WIDTH_1 - data.length();
+    if(pad > 0){
+      for(int x = 0; x < pad; x = x+2){
+        this->print(" ");
+      }
+    }
+  }
+
   this->println(data);
   if(display) this->display();
 }
@@ -149,54 +160,39 @@ void MonocleOLED::printLine(const int line, const String& data, bool display){
 /**
  * PRINT TEXT TO LINE 1
  */
-void MonocleOLED::printLine1(const String& data, bool display){
-  int startY = this->textLineStart;
-  this->writeFillRect(0, startY, this->width, this->textLineHeight, BLACK);
-  this->setCursor(0,startY);
-  this->println(data);
-  if(display) this->display();
+void MonocleOLED::printLine1(const String& data, bool display, bool center){
+  this->printLine(0, data, display, center);
 }
 
 /**
  * PRINT TEXT TO LINE 2
  */
-void MonocleOLED::printLine2(const String& data, bool display){
-  int startY = this->textLineStart+(this->textLineHeight * 1);
-  this->writeFillRect(0, startY, this->width, this->textLineHeight, BLACK);
-  this->setCursor(0,startY);
-  this->println(data);
-  if(display) this->display();
+void MonocleOLED::printLine2(const String& data, bool display, bool center){
+  this->printLine(1, data, display, center);
 }
 
 /**
  * PRINT TEXT TO LINE 3
  */
-void MonocleOLED::printLine3(const String& data, bool display){
-  int startY = this->textLineStart+(this->textLineHeight * 2);
-  this->writeFillRect(0, startY, this->width, this->textLineHeight, BLACK);
-  this->setCursor(0,startY);
-  this->println(data);
-  if(display) this->display();
+void MonocleOLED::printLine3(const String& data, bool display, bool center){
+  this->printLine(2, data, display, center);
 }
 
 /**
  * PRINT TEXT TO LINE 4
  */
-void MonocleOLED::printLine4(const String& data, bool display){
-  int startY = this->textLineStart+(this->textLineHeight * 3);
-  this->writeFillRect(0, startY, this->width, this->textLineHeight, BLACK);
-  this->setCursor(0,startY);
-  this->println(data);
-  if(display) this->display();
+void MonocleOLED::printLine4(const String& data, bool display, bool center){
+  this->printLine(3, data, display, center);
 }
 
 /**
  * PRINT TEXT TO MULTIPLE LINES
  */
-void MonocleOLED::printText(const String& line1, const String& line2, const String& line3, const String& line4, bool display){
-  this->printLine1(line1, false);
-  this->printLine2(line2, false);
-  this->printLine3(line3, false);
-  this->printLine4(line4, false);
+void MonocleOLED::printText(const String& line1, const String& line2,
+     const String& line3, const String& line4, bool display, bool center){
+  this->printLine1(line1, false, center);
+  this->printLine2(line2, false, center);
+  this->printLine3(line3, false, center);
+  this->printLine4(line4, false, center);
   if(display) this->display();
 }

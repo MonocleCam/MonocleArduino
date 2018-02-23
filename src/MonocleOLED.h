@@ -27,6 +27,8 @@
 
 #include <Adafruit_SSD1306.h>
 
+/* NUMBER OF TEXT CHARACTERS PER LINE AT TEXT SIZE 1 */
+#define LINE_CHARACTER_WIDTH_1  21
 
 class MonocleOLED : public Adafruit_SSD1306
 {
@@ -50,7 +52,7 @@ class MonocleOLED : public Adafruit_SSD1306
 
     /**
      * DRAW THE MONOCLE LOGO
-     */     
+     */
      void logo(bool display = true);
 
     /**
@@ -70,43 +72,43 @@ class MonocleOLED : public Adafruit_SSD1306
 
     /**
      * CLEAR TEXT LINE 3
-     */     
+     */
      void clearLine3(bool display = true);
 
     /**
      * CLEAR TEXT LINE 4
-     */     
+     */
      void clearLine4(bool display = true);
 
      /**
       * PRINT TEXT TO MULTIPLE LINES
       */
-     void printText(const String& line1 = "", const String& line2 = "", const String& line3 = "", const String& line4 = "", bool display = true);
+     void printText(const String& line1 = "", const String& line2 = "", const String& line3 = "", const String& line4 = "", bool display = true, bool center = false);
 
      /**
       * PRINT TEXT TO A SPECIFIC LINE NUMBER
       */
-     void printLine(const int line, const String& data, bool display = true);
+     void printLine(const int line, const String& data, bool display = true, bool center = false);
 
      /**
       * PRINT TEXT TO LINE 1
       */
-     void printLine1(const String& data, bool display = true);
+     void printLine1(const String& data, bool display = true, bool center = false);
 
      /**
       * PRINT TEXT TO LINE 2
       */
-     void printLine2(const String& data, bool display = true);
+     void printLine2(const String& data, bool display = true, bool center = false);
 
      /**
       * PRINT TEXT TO LINE 3
       */
-     void printLine3(const String& data, bool display = true);
+     void printLine3(const String& data, bool display = true, bool center = false);
 
      /**
       * PRINT TEXT TO LINE 4
       */
-     void printLine4(const String& data, bool display = true);
+     void printLine4(const String& data, bool display = true, bool center = false);
 };
 
 #endif //MONOCLE_OLED_H

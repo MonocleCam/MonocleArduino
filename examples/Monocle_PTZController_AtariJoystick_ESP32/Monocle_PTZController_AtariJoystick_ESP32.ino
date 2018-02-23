@@ -120,7 +120,7 @@
  *
  *  1 @  2.2"x1.4"x 0.6" Plastic Electric Project Case
  *       http://amzn.to/2GxxyiS
- *       $8.14 USD (5 pc)  <AMAZON PRIME> 
+ *       $8.14 USD (5 pc)  <AMAZON PRIME>
  *
  *  OPTIONAL COMPONENTS:
  *
@@ -165,6 +165,10 @@
   *   https://github.com/arduino-libraries/ArduinoHttpClient
   *   (used for web-socket communication)
   *
+  * - ArduinoJson
+  *   https://arduinojson.org
+  *   (used for decoding communication messages)
+  *
   * - Bounce2
   *   https://github.com/thomasfredericks/Bounce2
   *   (used for debouncing the joystick button)  *
@@ -181,6 +185,7 @@
 
 /* REQUIRED FOR MONOCLE GATEWAY CLIENT */
 #include <ArduinoHttpClient.h>
+#include <ArduinoJson.h>
 
 /* REQUIRED FOR JOYSTICK DIGITAL INPUTS */
 #include <Bounce2.h>
@@ -340,8 +345,12 @@ void loop() {
     Serial.println("Successfully connected to Monocle Gateway.");
   }
 
-  // continious loop while we are connected to the Monocle Gateway
+  // continuous loop while we are connected to the Monocle Gateway
   while (monocle.connected()) {
+
+    // we must call the 'loop' function on the Monocle
+    // client to service communication and raise events
+    monocle.loop();
 
     // iterate over all the joystick pins in the debounce instance and update them
     for (int i = 0; i < sizeof(JOYSTICK_PINS); i++)  {
@@ -413,4 +422,10 @@ void loop() {
   Serial.println("Disconnected from Monocle Gateway.");
   Serial.println("We will attempt to reconnect to the Monocle Gateway in 5 seconds.");
   delay(5000); // wait 5 seconds before attempting to reconnect
+
+  // I'm not sure why yet, still need to track down this bug, but after a websocket
+  // disconnects, future re-connections are not maintained and continually
+  // disconnect immediately after connect. So we will restart the micro-controller
+  // for the time being.
+  ESP.restart();
 }

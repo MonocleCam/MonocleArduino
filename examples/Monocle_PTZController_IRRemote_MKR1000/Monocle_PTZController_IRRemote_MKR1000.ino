@@ -159,6 +159,10 @@
   *   https://github.com/arduino-libraries/ArduinoHttpClient
   *   (used for web-socket communication)
   *
+  * - ArduinoJson
+  *   https://arduinojson.org
+  *   (used for decoding communication messages)
+  *
   * - Arduino-IRremote
   *   https://github.com/z3t0/Arduino-IRremote
   *   (used for receiving and decoding infrared signals)
@@ -176,6 +180,7 @@
 
 /* REQUIRED FOR MONOCLE GATEWAY CLIENT */
 #include <ArduinoHttpClient.h>
+#include <ArduinoJson.h>
 
 /* REQUIRED FOR RECEIVING IR SIGNALS */
 #include <IRremote.h>
@@ -236,9 +241,6 @@
  /* WIRELESS NETWORK SSID AND PASSWORD ARE STORED IN 'private.h' */
 const char* ssid     = WIFI_SSID;
 const char* password = WIFI_PASS;
-
-// local connection state tracking variable
-bool gateway_connected = false;
 
 // wifi client; needed for Monocle Gateway Client
 WiFiClient wifi;
@@ -309,23 +311,23 @@ void setup() {
  * ------------------------------------------------------------------------
  */
 void loop() {
-  // reset local connection tracking state
-  gateway_connected = false;
-
   // let the user know we are going to attempt a connection to the Monocle Gateway
   Serial.println("Connecting to Monocle Gateway");
 
   // attmept to connect to the Monocle Gateway now
   monocle.begin();
 
-  // continious loop while we are connected to the Monocle Gateway
+  // let the user know we are connected to the Monocle Gateway
+  if (monocle.connected()) {
+    Serial.println("Successfully connected to Monocle Gateway.");
+  }
+
+  // continuous loop while we are connected to the Monocle Gateway
   while (monocle.connected()) {
 
-    // let the user know we are connected to the Monocle Gateway
-    if(!gateway_connected) {
-      gateway_connected = true; // update local tracking state
-      Serial.println("Successfully connected to Monocle Gateway.");
-    }
+    // we must call the 'loop' function on the Monocle
+    // client to service communication and raise events
+    monocle.loop();
 
     // if the IR timeout is active, then check to see if 200 milliseconds
     // have passed without any IR repeat signals before sending the

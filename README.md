@@ -20,6 +20,7 @@ ___
 
 This library depends on:
 * [ArduinoHttpClient](https://github.com/arduino-libraries/ArduinoHttpClient)
+* [ArduinoJson](https://arduinojson.org)
 
 ## Classes
 
@@ -57,6 +58,7 @@ This project implements a 3-axis joystick controller with an Arduino MKR1000 to 
 | Library       | Purpose     | URL  |
 | ------------- |-------------| -----|
 | ArduinoHttpClient      | used for web-socket communication | https://github.com/arduino-libraries/ArduinoHttpClient |
+| ArduinoJson   | used for decoding messages | https://arduinojson.org |
 | Adafruit_GFX      | used for OLED display | https://github.com/adafruit/Adafruit-GFX-Library |
 | Adafruit_SSD1306  | used for OLED display |  https://github.com/adafruit/Adafruit_SSD1306 |
 | Arduino-MenuSystem  | used for menu navigation on OLED display | https://github.com/jonblack/arduino-menusystem |
@@ -94,6 +96,7 @@ This project implements a small 2-axis joystick controller with an Arduino MKR10
 | Library       | Purpose     | URL  |
 | ------------- |-------------| -----|
 | ArduinoHttpClient      | used for web-socket communication | https://github.com/arduino-libraries/ArduinoHttpClient |
+| ArduinoJson   | used for decoding messages | https://arduinojson.org |
 | Adafruit_GFX      | used for OLED display | https://github.com/adafruit/Adafruit-GFX-Library |
 | Adafruit_SSD1306  | used for OLED display |  https://github.com/adafruit/Adafruit_SSD1306 |
 | Arduino-MenuSystem  | used for menu navigation on OLED display | https://github.com/jonblack/arduino-menusystem |
@@ -149,6 +152,7 @@ We provide a number of examples of this project for various micro-controller boa
 | Library       | Purpose     | URL  |
 | ------------- |-------------| -----|
 | ArduinoHttpClient      | used for web-socket communication | https://github.com/arduino-libraries/ArduinoHttpClient |
+| ArduinoJson   | used for decoding messages | https://arduinojson.org |
 | Bounce2  | used for debouncing the joystick button |  https://github.com/thomasfredericks/Bounce2 |
 
 
@@ -219,6 +223,7 @@ We provide an example of this project for the Arduino MKR1000 board and the ESP3
 | Library       | Purpose     | URL  |
 | ------------- |-------------| -----|
 | ArduinoHttpClient      | used for web-socket communication | https://github.com/arduino-libraries/ArduinoHttpClient |
+| ArduinoJson   | used for decoding messages | https://arduinojson.org |
 | Arduino-IRremote  | used for debouncing the joystick button |  https://github.com/z3t0/Arduino-IRremote |
 
 
