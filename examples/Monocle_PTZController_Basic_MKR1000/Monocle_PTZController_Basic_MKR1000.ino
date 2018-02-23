@@ -311,7 +311,7 @@ void setup() {
   analogReference(AR_DEFAULT);
 
   // configure joystick pins and the ADC resolution for each
-  // (most likly same resulution for all pins)
+  // (most likely same resolution for all pins)
   joystick.setupPan(PIN_PAN, ADC_RESOLUTION);
   joystick.setupTilt(PIN_TILT, ADC_RESOLUTION);
 
@@ -322,7 +322,7 @@ void setup() {
   joystick.invertPanAxis(INVERT_PAN_AXIS);
   joystick.invertTiltAxis(INVERT_TILT_AXIS);
 
-  // configute joystick thresholds for the LOW state only (MED and HIGH are not used with this joystick)
+  // configure joystick thresholds for the LOW state only (MED and HIGH are not used with this joystick)
   joystick.setPanThresholdLow(JOYSTICK_THRESHOLD_LOW);
   joystick.setTiltThresholdLow(JOYSTICK_THRESHOLD_LOW);
 
@@ -352,13 +352,16 @@ void setup() {
   menu.onZoom(&menuZoomHandler);
   menu.onPreset(&menuPresetHandler);
 
+  // register for active camera source changes
+  monocle.onCameraChange(&cameraChangeHandler);
+
   // display connecting status on OLED
   display.clearText(false);
   display.printLine1("Connecting to WiFi ..", false);
-  display.printLine2(ssid);
+  display.printLine2(ssid, true, true);
 
   // let the user know that we are attempting to connect to the wireless network
-  Serial.print("Connecting to wirless network: ");
+  Serial.print("Connecting to wireless network: ");
   Serial.println(ssid);
 
   // start the connection to the user's wireless access point
@@ -382,7 +385,7 @@ void setup() {
   Serial.println("================================================");
 
   // display connected status on OLED
-  display.printText("WiFi Connected", ip_address);
+  display.printText("WiFi Connected", ip_address, "" , "", true, true);
 }
 
 /**
@@ -393,7 +396,15 @@ void setup() {
  * OLED display.
  */
 void displayCameraInfo(){
-  display.printText("    CAMERA READY!", "  (click for menu)");
+  if(monocle.activeCameraSource().error){
+    display.printText("CAMERA ERROR!", monocle.activeCameraSource().name, "", "(DISABLED)", true, true);
+  }
+  else if(!monocle.activeCameraSource().ptz) {
+    display.printText("PTZ NOT SUPPORTED!", monocle.activeCameraSource().name, "", "(DISABLED)", true, true);
+  }
+  else {
+    display.printText("CAMERA READY!", monocle.activeCameraSource().name, "", "(click for menu)", true, true);
+  }
 }
 
 /**
@@ -422,6 +433,10 @@ void displayCameraInfo(){
  */
 void joystickPTZChangeHandler(int pan, int tilt, int zoom){
 
+  // bail out if the active camera source is not enabled
+  if(!monocle.isCameraEnabled())
+    return;
+
   // use the joystick inputs to handle menu
   // navigation control when menu is active
   if(menu.isActive()){
@@ -444,13 +459,16 @@ void joystickPTZChangeHandler(int pan, int tilt, int zoom){
 
   // build a display string of the current  PTZ action(s)
   String info = "";
-  if(pan > 0) info+=" RIGHT";
-  if(pan < 0) info+=" LEFT";
-  if(tilt > 0) info+=" UP";
-  if(tilt < 0) info+=" DOWN";
-  if(zoom > 0) info+=" IN";
-  if(zoom < 0) info+=" OUT";
-  display.printLine4(info);
+  if(pan > 0) info+="RIGHT ";
+  if(pan < 0) info+="LEFT ";
+  if(tilt > 0) info+="UP ";
+  if(tilt < 0) info+="DOWN ";
+  if(zoom > 0) info+="IN ";
+  if(zoom < 0) info+="OUT ";
+
+  if(info.length() <= 0)
+    info = "(click for menu)";
+  display.printLine4(info, true, true);
 
   // enable this debugging info if you need to calibrate your josystick thresholds
   //  Serial.print("PAN=");
@@ -474,6 +492,10 @@ void joystickPTZChangeHandler(int pan, int tilt, int zoom){
  * the PTZ joystick button is pressed
  */
 void joystickButtonPressHandler(){
+
+  // bail out if the active camera source is not enabled
+  if(!monocle.isCameraEnabled())
+    return;
 
   // if the zoom mode is active, then disable it
   if(zoomActive == true){
@@ -549,6 +571,40 @@ void menuPresetHandler(const int preset){
   monocle.preset(preset);
 }
 
+/**
+ * ACTIVE CAMERA SOURCE CHANGED CALLBACK
+ * ----------------------------------------------
+ * This callback handler is invoked whenever
+ * the active camera source has changed.
+ */
+void cameraChangeHandler(CameraSource& camera){
+  Serial.println("----------------------------------------------");
+  Serial.println(">>> NEW CAMERA SOURCE");
+  Serial.print(" - UUID : ");
+  Serial.println(camera.uuid);
+  Serial.print(" - NAME : ");
+  Serial.println(camera.name);
+  Serial.print(" - MANUFACTURER : ");
+  Serial.println(camera.manufacturer);
+  Serial.print(" - MODEL : ");
+  Serial.println(camera.model);
+  if(camera.ptz)
+    Serial.println(" - PTZ-SUPPORTED : TRUE");
+  else
+    Serial.println(" - PTZ-SUPPORTED : FALSE");
+  Serial.println("----------------------------------------------");
+
+  if(camera.error){
+    Serial.println("ATTENTION; ERROR: ");
+    Serial.println(camera.errorMessage);
+  }
+
+  // deactivate the menu (if it's active)
+  menu.deactivate();
+
+  // update display
+  displayCameraInfo();
+}
 
 /**
  * ------------------------------------------------------------------------
@@ -557,7 +613,7 @@ void menuPresetHandler(const int preset){
  */
 void loop() {
   // display connecting status on OLED
-  display.printText("Connecting to Gateway", MONOCLE_GATEWAY_ADDRESS);
+  display.printText("Connecting to Gateway", MONOCLE_GATEWAY_ADDRESS, "", "", true, true);
 
   // let the user know we are going to attempt a connection to the Monocle Gateway
   Serial.println("Connecting to Monocle Gateway");
@@ -568,7 +624,7 @@ void loop() {
   // let the user know we are connected to the Monocle Gateway
   if (monocle.connected()) {
     Serial.println("Successfully connected to Monocle Gateway.");
-    display.printText("Gateway Connected");
+    display.printLine3("Gateway Connected", true, true);
     delay(1000);
     displayCameraInfo();
   }
@@ -588,6 +644,9 @@ void loop() {
     // class to service the display and raise events
     menu.loop();
   }
+
+  // deactivate the menu (if it's active)
+  menu.deactivate();
 
   // let the user know that we are now disconnected from the Monocle Gateway
   Serial.println("Disconnected from Monocle Gateway.");

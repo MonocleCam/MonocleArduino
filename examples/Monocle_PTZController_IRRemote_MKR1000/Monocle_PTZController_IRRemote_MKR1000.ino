@@ -276,7 +276,7 @@ void setup() {
   Serial.println("================================================");
 
   // let the user know that we are attempting to connect to the wireless network
-  Serial.print("Connecting to wirless network: ");
+  Serial.print("Connecting to wireless network: ");
   Serial.println(ssid);
 
   // start the connection to the user's wireless access point
