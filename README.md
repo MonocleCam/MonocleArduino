@@ -52,7 +52,7 @@ ___
 
 ### Deluxe 3-Axis Joystick PTZ Controller
 
-This project implements a 3-axis joystick controller with an Arduino MKR1000 to provide the most sophisticated and feature rich controller of all the project samples we provide. This project implements a small OLED module (128x64 pixels) to serve as a user interface for menu navigation. The third axis on this joystick is a rotational axis that is used for zoom control. All three axis on this joystick provide positional feedback (potentiometers) so we use this information to ramp PTZ movement speed proportionally with the position of the joystick relative to it's center.
+This project implements a 3-axis joystick controller with an Arduino MKR1000 to provide the most sophisticated and feature rich controller of all the project samples provided. This project implements a small OLED module (128x64 pixels) to serve as a user interface for menu navigation. The third axis on this joystick is a rotational axis and used for zoom control. Each axis on this joystick provides positional feedback (potentiometers) and this information is used to ramp PTZ movement speed proportionally with the position of the joystick relative to its center.
 
 #### Source Code
 * [Monocle_PTZController_Deluxe_MKR1000](examples/Monocle_PTZController_Deluxe_MKR1000)
@@ -90,7 +90,7 @@ ___
 
 ### Basic 2-Axis Joystick PTZ Controller
 
-This project implements a small 2-axis joystick controller with an Arduino MKR1000 to provide virtually the same features as the Deluxe version of this project but with a more compact form factor and without a direct means of zoom control. The project does support zoom, but you have to access it via the menu system first. (Note: you cannot perform the zoom and tilt functions simultaneously). This project implements a tiny OLED module (128x32 pixels) to serve as a user interface for menu navigation.
+This project implements a small 2-axis joystick controller with an Arduino MKR1000 to provide virtually the same features as the Deluxe version of this project but with a more compact form factor and without a direct means of zoom control. The project does support zoom, but is accessed via the menu system. (Note: zoom and tilt functions cannot operate simultaneously as they can with the Deluxe controller). This project implements a tiny OLED module (128x32 pixels) to serve as a user interface for menu navigation.
 
 #### Source Code
 * [Monocle_PTZController_Basic_MKR1000](examples/Monocle_PTZController_Basic_MKR1000)
@@ -128,9 +128,10 @@ ___
 
 ### Retro Gaming Joystick PTZ Controller
 
-Retro computing holds a special place in my heart so I thought it only fitting to build a PTZ controller based on a retro gaming joystick. This project uses an Atari / Commodore compatible joystick to control your cameras. This project is perhaps the simplest PTZ controller of all the sample projects to build and understand. It only makes use of simple digital inputs and the build can easily be housed in a small plastic enclosure for a very clean and minimalistic footprint.
+Retro gaming and computing holds a special place in the hearts of many, and a few people, including those at Monocle, actually still have some of these joysticks around the house! This project builds a PTZ controller for the camera based on a retro gaming joystick, using an Atari / Commodore compatible joystick in this particular example. This project is straightforward to build and understand. It makes use of simple digital inputs and the build can easily be housed in a small plastic enclosure for a very clean and simple finished product.
 
-This controller implementation is basic with no user interface but still supports the essential PTZ functions as follows.
+
+This controller implementation is basic with no user interface, but still supports the essential PTZ functions as follows:
 
 * Joystick Up > Tilt Camera Up
 * Joystick Down > Tilt Camera Down
@@ -193,9 +194,9 @@ ___
 
 ### IR Remote Control PTZ Controller
 
-Some users will no doubt prefer a more discrete form of PTZ control without some joystick sitting on the coffee table or nightstand.  This project implements the PTZ controller in the form of a very compact infrared remote control.  This project is among the simplest PTZ controller in our sample projects.  In fact its the easiest one to build only requiring three pins connected from a tiny IR receiver to the micro-controller.  It can easily be housed in a small plastic enclosure for a very clean and minimalistic aesthetic and place in a discrete location.
+Some users will prefer a more discrete form of PTZ control without a joystick sitting on the coffee table or nightstand. This project implements the PTZ controller in the form of a very compact infrared remote control. This project is among the simplest PTZ controllers in our sample projects. In fact, it is probably the easiest one to build, only requiring three pins connected from a tiny IR receiver to the micro-controller. It can easily be housed in a small plastic enclosure and kept in a discrete location.
 
-The remote control implementation is basic with no user interface but supports all of the same PTZ functions as the deluxe controller project. The remote control functions as follows:
+The remote control implementation is basic with no user interface, but it supports all of the same PTZ functions as the deluxe controller project. The remote control functions as follows:
 
 * [ LEFT ] - PAN LEFT (continuous while held down)
 * [ RIGHT ] - PAN RIGHT (continuous while held down)
